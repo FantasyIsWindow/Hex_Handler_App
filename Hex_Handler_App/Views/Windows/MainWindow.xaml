@@ -1,0 +1,79 @@
+﻿<Window x:Class="Hex_Handler_App.Views.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:Hex_Handler_App.Views.Controls"
+        xmlns:ViewModel="clr-namespace:Hex_Handler_App.ViewModel"
+        xmlns:Converters="clr-namespace:Hex_Handler_App.Infrastructure.Converters"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        x:Name="window"      
+        Title="Hex_Handler_App" 
+        Height="600" 
+        Width="450" 
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Converters:BlurConverter x:Key="blurConverter"/>
+        <Converters:VisibilityConverter x:Key="visibilityConverter"/>
+        <BlurEffect Radius="0" x:Key="blur_0"/>
+        <BlurEffect Radius="10" x:Key="blur_10"/>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=cPresenter, Path=Content, Converter={StaticResource blurConverter}}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=cPresenter, Path=Content, Converter={StaticResource blurConverter}}" Value="True">
+                            <Setter Property="Effect" Value="{StaticResource blur_10}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=cPresenter, Path=Content, Converter={StaticResource blurConverter}}" Value="False">
+                            <Setter Property="Effect" Value="{StaticResource blur_0}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button Margin="5" Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}" ToolTip="Save data received during processing" x:Name="saveHashBtn"/>
+                <Button Margin="5" Command="{Binding FindAndDeleteDuplicatesCommand}" Style="{StaticResource DuplicatesDelButtonStyle}" ToolTip="Search and delete duplicate hex keys" x:Name="duplicateHashBtn"/>
+                <Controls:PopupWindow ElementParent="{Binding ElementName=window}" Message="{Binding Messager}" ShowMode="{Binding ShowMode}" OriginCollection="{Binding HexModels, Mode=TwoWay}" IsEnabled="{Binding ElementName=saveHashBtn, Path=IsEnabled}" Margin="5" ToolTip="Start searching for the entered data" x:Name="searchHashControl"/>
+                <Controls:ModeSwitch x:Name="switch" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="175, 0, 0, 0" Checked="{Binding ShowMode, Mode=OneWayToSource}" IsChecked="{x:Null}"/>
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="5">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=switch, Path=Checked}" Value="Null">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding EnteredFilePath}" Style="{StaticResource TextBoxStyle}" Grid.ColumnSpan="2"/>
+                <Button Command="{Binding OpenFileCommand}" Style="{StaticResource OpenFolderButtonStyle}" HorizontalAlignment="Left" ToolTip="Open the file selection window for parsing" Grid.Column="1"/>
+            </Grid>
+            <Controls:SynchronizedDataGrid x:Name="dataGrid" Grid.Row="2" Message="{Binding Messager}" ShowMode="{Binding ShowMode}" DisplayData="{Binding HexModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectItem="{Binding ElementName=searchHashControl, Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ContentPresenter Content="{Binding Content}" x:Name="cPresenter">
+                <ContentPresenter.Resources>
+                    <DataTemplate DataType="{x:Type ViewModel:LoadViewModel}">
+                        <Controls:LoadAnimation/>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+            </ContentPresenter>
+        </Border>
+    </Grid>
+</Window>

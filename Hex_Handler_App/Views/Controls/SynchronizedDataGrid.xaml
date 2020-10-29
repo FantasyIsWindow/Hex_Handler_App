@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Hex_Handler_App.Views.Controls.SynchronizedDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:Hex_Handler_App.Infrastructure.Converters">
+    <UserControl.Resources>
+        <Converters:VisibilityConverter x:Key="visibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="keysGrid"
+                  Style="{StaticResource dataGridStyle}" 
+                  Visibility="{Binding ShowMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource visibilityConverter}, ConverterParameter=Keys}"
+                  ItemsSource="{Binding DisplayData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Number}" Header="№" MinWidth="50" Width="auto" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=KeyValue}" Header="Key" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="hashGrid"
+                  Style="{StaticResource dataGridStyle}" 
+                  Visibility="{Binding ShowMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource visibilityConverter}, ConverterParameter=Hash}"
+                  CellEditEnding="grid_CellEditEnding"
+                  ItemsSource="{Binding DisplayData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Number}" Header="№" MinWidth="50" Width="auto" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Path=KeyValue}" Header="Key" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path=HashValue, UpdateSourceTrigger=PropertyChanged}" Header="Hash" MinWidth="40"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Selected operating mode"
+               Visibility="{Binding ShowMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource visibilityConverter}, ConverterParameter=Message}"
+               VerticalContentAlignment="Center" 
+               HorizontalContentAlignment="Center"
+               FontSize="32"/>
+    </Grid>
+</UserControl>

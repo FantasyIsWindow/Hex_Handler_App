@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Canvas x:Key="SaveIcon" Height="20" Width="19.5" x:Shared="False">
+        <Path Fill="#ffffffff" Data="F1 M 17.742,18.275 L 1.374,18.275 L 1.374,8.879 L 17.742,8.879 L 17.742,18.275 Z"/>
+        <Path Fill="#ffffffff" Data="F1 M 14.083,5.665 L 9.693,5.665 L 9.693,0.570 L 14.083,0.570 L 14.083,5.665 Z"/>
+        <Path Fill="Orange" Data="F1 M 13.490,4.931 C 13.490,5.154 13.309,5.335 13.086,5.335 L 10.877,5.335 C 10.654,5.335 10.473,5.154 10.473,4.931 L 10.473,1.420 C 10.473,1.197 10.654,1.016 10.877,1.016 L 13.086,1.016 C 13.309,1.016 13.490,1.197 13.490,1.420 L 13.490,4.931 Z M 13.896,0.000 L 5.402,0.000 C 4.689,0.000 4.111,0.578 4.111,1.291 L 4.111,5.016 C 4.111,5.730 4.689,6.308 5.402,6.308 L 13.896,6.308 C 14.609,6.308 15.187,5.730 15.187,5.016 L 15.187,1.291 C 15.187,0.578 14.609,0.000 13.896,0.000 Z"/>
+        <Path Fill="Orange" Data="F1 M 15.056,14.664 C 15.056,14.924 14.845,15.134 14.586,15.134 L 4.762,15.134 C 4.502,15.134 4.292,14.924 4.292,14.664 L 4.292,14.664 C 4.292,14.405 4.502,14.195 4.762,14.195 L 14.586,14.195 C 14.845,14.195 15.056,14.405 15.056,14.664 L 15.056,14.664 Z"/>
+        <Path Fill="Orange" Data="F1 M 14.586,12.934 L 4.762,12.934 C 4.502,12.934 4.292,12.724 4.292,12.464 C 4.292,12.205 4.502,11.995 4.762,11.995 L 14.586,11.995 C 14.845,11.995 15.056,12.205 15.056,12.464 C 15.056,12.724 14.845,12.934 14.586,12.934 Z"/>
+        <Path Fill="Orange" Data="F1 M 17.116,16.288 C 17.116,17.121 16.441,17.797 15.608,17.797 L 3.740,17.797 C 2.907,17.797 2.231,17.121 2.231,16.288 L 2.231,10.783 C 2.231,9.950 2.907,9.275 3.740,9.275 L 15.608,9.275 C 16.441,9.275 17.116,9.950 17.116,10.783 L 17.116,16.288 Z M 17.166,0.570 L 16.221,0.570 C 16.221,0.570 16.221,4.908 16.221,5.462 C 16.220,6.188 15.746,7.254 14.266,7.460 C 13.545,7.460 6.201,7.454 5.125,7.454 C 3.604,7.296 3.157,6.188 3.157,5.452 C 3.157,4.931 3.171,0.570 3.171,0.570 L 1.627,0.570 C 0.728,0.570 0.000,1.298 0.000,2.197 L 0.000,18.329 C 0.000,19.228 0.728,19.956 1.627,19.956 L 17.759,19.956 C 18.658,19.956 19.386,19.228 19.386,18.329 L 19.386,2.832 C 18.897,2.339 17.566,0.975 17.166,0.570 Z"/>
+    </Canvas>
+
+    <Canvas x:Key="DuplicatesDelIcon" Height="21" Width="21" x:Shared="False">
+        <Path StrokeThickness="1.5" Stroke="Orange" StrokeMiterLimit="1.0" Fill="#ffffffff" Data=" M 14.980,7.244 C 14.980,8.524 14.644,9.744 14.061,10.788 C 14.242,11.982 14.061,10.788 14.242,11.982 C 14.221,12.015 13.129,13.097 12.474,13.752 C 11.279,13.564 12.474,13.752 11.279,13.564 C 10.232,14.152 9.023,14.488 7.736,14.488 C 3.735,14.488 0.492,11.245 0.492,7.244 C 0.492,3.243 3.735,-0.000 7.736,-0.000 C 11.736,-0.000 14.980,3.243 14.980,7.244 Z"/>
+        <Path StrokeThickness="0.8" Stroke="Orange" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeMiterLimit="1.0" Data=" M 4.936,3.338 C 1.310,6.250 3.717,10.711 5.377,11.207"/>
+        <Path StrokeThickness="1.5" Stroke="#ffe20512" StrokeMiterLimit="1.0" Fill="#ffffffff" Data=" M 12.331,14.099 C 12.331,17.504 9.571,20.265 6.166,20.265 C 2.760,20.265 -0.000,17.504 -0.000,14.099 C -0.000,10.694 2.760,7.933 6.166,7.933 C 9.571,7.933 12.331,10.694 12.331,14.099 Z"/>
+        <Path StrokeThickness="1.3" Stroke="#ffe20512" StrokeMiterLimit="1.0" Data=" M 3.759,16.514 L 8.573,11.700"/>
+        <Path StrokeThickness="1.3" Stroke="#ffe20512" StrokeMiterLimit="1.0" Data=" M 8.573,16.514 L 3.759,11.700"/>
+        <Path Fill="Orange" Data=" M 13.657,14.975 L 17.647,19.995 C 17.647,19.995 19.040,21.317 20.401,19.956 C 21.763,18.594 20.441,17.201 20.441,17.201 L 15.426,13.206 L 13.657,14.975 Z"/>
+    </Canvas>
+
+    <Canvas x:Key="SearchIcon" Height="21" Width="21" x:Shared="False">
+        <Path StrokeThickness="1.5" Stroke="Orange" StrokeMiterLimit="1.0" Fill="#ffffffff" Data=" M 14.980,7.244 C 14.980,8.524 14.644,9.744 14.061,10.788 C 14.242,11.982 14.061,10.788 14.242,11.982 C 14.221,12.015 13.129,13.097 12.474,13.752 C 11.279,13.564 12.474,13.752 11.279,13.564 C 10.232,14.152 9.023,14.488 7.736,14.488 C 3.735,14.488 0.492,11.245 0.492,7.244 C 0.492,3.243 3.735,-0.000 7.736,-0.000 C 11.736,-0.000 14.980,3.243 14.980,7.244 Z"/>
+        <Path StrokeThickness="0.8" Stroke="Orange" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeMiterLimit="1.0" Data=" M 4.936,3.338 C 1.310,6.250 3.717,10.711 5.377,11.207"/>
+        <Path Fill="Orange" Data=" M 13.657,14.975 L 17.647,19.995 C 17.647,19.995 19.040,21.317 20.401,19.956 C 21.763,18.594 20.441,17.201 20.441,17.201 L 15.426,13.206 L 13.657,14.975 Z"/>
+    </Canvas>
+
+    <Canvas x:Key="OpenFolderIcon" Height="16" Width="22" x:Shared="False">
+        <Path Fill="Orange" Data="F1 M 2.653,13.886 L 5.916,5.374 L 21.684,5.374 L 17.776,15.958 L 1.493,15.958 L 0.000,3.501 L 2.626,3.501 L 2.653,13.886 Z"/>
+        <Path Fill="#ffffffff" Data="F1 M 2.501,14.281 L 2.501,0.000 L 20.110,0.000 L 20.110,5.556 L 5.916,5.556 L 2.501,14.281 Z"/>
+    </Canvas>
+
+    <Style TargetType="{x:Type Button}" x:Key="GeneralButtonStyle">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>        
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="SaveButtonStyle" BasedOn="{StaticResource GeneralButtonStyle}">
+        <Setter Property="Content" Value="{StaticResource SaveIcon}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="DuplicatesDelButtonStyle" BasedOn="{StaticResource GeneralButtonStyle}">
+        <Setter Property="Padding" Value="1, 1, 0, 0"/>
+        <Setter Property="Content" Value="{StaticResource DuplicatesDelIcon}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="SearchButtonStyle" BasedOn="{StaticResource GeneralButtonStyle}">
+        <Setter Property="Margin" Value="0, 0, 1, 0"/>
+        <Setter Property="Content" Value="{StaticResource SearchIcon}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="OpenFolderButtonStyle" BasedOn="{StaticResource GeneralButtonStyle}">
+        <Setter Property="Margin" Value="0, 0, 1, 0"/>
+        <Setter Property="Content" Value="{StaticResource OpenFolderIcon}"/>
+    </Style>
+    
+</ResourceDictionary>

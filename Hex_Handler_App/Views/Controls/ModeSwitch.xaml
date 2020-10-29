@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Hex_Handler_App.Views.Controls.ModeSwitch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <CheckBox Width="150" Height="25" IsThreeState="True" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Indeterminate="CheckBox_Indeterminate" x:Name="checkBox" IsChecked="{x:Null}">
+        <CheckBox.Style>
+            <Style TargetType="{x:Type CheckBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Canvas >
+                                    <Path x:Name="rightRectangle" StrokeThickness="0.5" Stroke="LightGray" Data="F1 M 145.739,23.250 L 74.250,23.250 L 74.250,0.250 L 145.739,0.250 C 147.126,0.250 148.250,1.374 148.250,2.761 L 148.250,20.739 C 148.250,22.126 147.126,23.250 145.739,23.250 Z"/>
+                                    <Path x:Name="leftRectangle" StrokeThickness="0.5" Stroke="LightGray" Data="F1 M 74.250,23.250 L 2.775,23.250 C 1.380,23.250 0.250,22.120 0.250,20.725 L 0.250,2.775 C 0.250,1.380 1.380,0.250 2.775,0.250 L 74.250,0.250 L 74.250,23.250 Z"/>
+                                </Canvas>
+                                <Label Grid.Column="0" Content="Keys" HorizontalAlignment="Left" Margin="0, -3, 0, 0"/>
+                                <Label Grid.Column="2" Content="Hash" HorizontalAlignment="Right" Margin="0, -3, 0, 0"/>
+                                <BulletDecorator Grid.Column="1" x:Name="bulletBody" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <BulletDecorator.Bullet>
+                                        <Grid>
+                                            <Canvas>
+                                                <Path StrokeThickness="0.5" Stroke="#ff1c1c1a" Fill="Orange" Data="F1 M 96.739,19.750 L 51.761,19.750 C 50.374,19.750 49.250,18.626 49.250,17.239 L 49.250,6.261 C 49.250,4.874 50.374,3.750 51.761,3.750 L 96.739,3.750 C 98.126,3.750 99.250,4.874 99.250,6.261 L 99.250,17.239 C 99.250,18.626 98.126,19.750 96.739,19.750 Z" Stretch="Fill" Width="60" Height="20" Canvas.Left="-11.5" Canvas.Top="1"/>
+                                                <Path x:Name="leftArrow" Fill="#ffffffff" Data="F1 M 51.924,11.750 L 59.863,16.334 L 59.863,7.166 L 51.924,11.750 Z" Stretch="Fill" Canvas.Left="-8" Canvas.Top="6.5"/>
+                                                <Path x:Name="rightArrow" Fill="#ffffffff" Data="F1 M 97.509,11.750 L 89.570,7.166 L 89.570,16.334 L 97.509,11.750 Z" Stretch="Fill" Canvas.Left="36" Canvas.Top="6.5"/>
+                                            </Canvas>
+                                            <Label Content="Mode" FontSize="10" Margin="1,-1,-1,1" />
+                                        </Grid>
+                                    </BulletDecorator.Bullet>
+                                </BulletDecorator>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="{x:Null}">
+                                    <Setter TargetName="bulletBody" Property="Margin" Value="0, 0, 0, 0"/>
+                                    <Setter TargetName="leftArrow" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="rightArrow" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="rightRectangle" Property="Fill" Value="#F4F4F4"/>
+                                    <Setter TargetName="leftRectangle" Property="Fill" Value="#F4F4F4"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="bulletBody" Property="Margin" Value="20, 0, 0, 0"/>
+                                    <Setter TargetName="leftArrow" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="rightArrow" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="rightRectangle" Property="Fill" Value="#DDDDDD"/>
+                                    <Setter TargetName="leftRectangle" Property="Fill" Value="#F4F4F4"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="bulletBody" Property="Margin" Value="-20, 0, 0, 0"/>
+                                    <Setter TargetName="leftArrow" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="rightArrow" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="leftRectangle" Property="Fill" Value="#DDDDDD"/>
+                                    <Setter TargetName="rightRectangle" Property="Fill" Value="#F4F4F4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </CheckBox.Style>
+    </CheckBox>
+</UserControl>

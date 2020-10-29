@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type DataGridRow}" x:Key="rowHeaderStyle">
+        <Setter Property="FontFamily" Value="Consolas"/>
+    </Style>
+    
+    <Style TargetType="{x:Type DataGridCell}" x:Key="dataGridCellStyle">
+        <Style.Triggers>
+            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                <Setter Property="Background" Value="#0078D7"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>    
+    
+    <Style TargetType="{x:Type DataGrid}" x:Key="dataGridStyle">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="CellStyle" Value="{StaticResource dataGridCellStyle}"/>
+
+        <Setter Property="RowStyle" Value="{StaticResource rowHeaderStyle}"/>
+    </Style>
+    
+</ResourceDictionary>
+

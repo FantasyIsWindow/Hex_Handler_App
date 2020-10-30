@@ -16,10 +16,22 @@ namespace Hex_Handler_App.Models
             _context = new WpfDispatcherContext();
         }
 
+        /// <summary>
+        /// Preparing data for saving
+        /// </summary>
+        /// <returns>Processed data</returns>
         public abstract string PreparingDataForSaving();
 
+        /// <summary>
+        /// Read and parsing data
+        /// </summary>
+        /// <param name="fileData">Processed data</param>
         public abstract void ReadAndParsingData(string fileData);
 
+        /// <summary>
+        /// Search for duplicates in the collection
+        /// </summary>
+        /// <returns>Collection of duplicates</returns>
         public HashSet<HexadecimalKeyModel> GetDuplicates()
         {
             HashSet<HexadecimalKeyModel> duplicatesArr = new HashSet<HexadecimalKeyModel>();
@@ -36,6 +48,10 @@ namespace Hex_Handler_App.Models
             return duplicatesArr;
         }
 
+        /// <summary>
+        /// Removing duplicates from the original collection
+        /// </summary>
+        /// <param name="duplicatesCol">Collection of duplicates to delete</param>
         public void DeleteDuplicates(HashSet<HexadecimalKeyModel> duplicatesCol)
         {
             foreach (var item in duplicatesCol)

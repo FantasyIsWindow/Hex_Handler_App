@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Hex_Handler_App.ViewModel
 {
@@ -24,7 +23,9 @@ namespace Hex_Handler_App.ViewModel
 
         private MainModel _mainModel;
 
-        private LoadViewModel _load;
+        private readonly LoadViewModel _load;
+
+        private readonly MessageManager _messager;
 
         public ObservableCollection<HexadecimalKeyModel> HexModels
         {
@@ -60,12 +61,13 @@ namespace Hex_Handler_App.ViewModel
             _hexModels = new ObservableCollection<HexadecimalKeyModel>();
             _fileWorker = new FileWorker();
             _load = new LoadViewModel();
+            _messager = new MessageManager();
         }
 
         public Action<object, EventArgs> Messager => ((sender, args) => 
         {
             var arg = (Exception)(args as PackageEventArgs).Message;
-            ShowOkMessage(arg.Message);
+            _messager.ShowOkMessage(arg.Message);
         });
 
         private RellayCommand _saveCommand;
@@ -84,18 +86,15 @@ namespace Hex_Handler_App.ViewModel
                         if (EnteredFilePath != null)
                         {
                             try
-                            {
-                                _load.CloseHandler += ((sender, args) => 
-                                {
-                                    Content = null;
-                                    SaveData(sender, args); 
-                                });
-                                _load.ExecuteFunc<string>(_mainModel.PreparingDataForSaving);
+                            { 
                                 Content = _load;
+                                _load.ResettingSubscriptions();
+                                _load.ExecuteFunc<string>(_mainModel.PreparingDataForSaving);
+                                _load.CloseHandler += ((sender, args) => SaveData(args));
                             }
                             catch (Exception e)
                             {
-                                ShowOkMessage(e.Message);
+                                _messager.ShowOkMessage(e.Message);
                             }
                         }
                     },
@@ -113,13 +112,14 @@ namespace Hex_Handler_App.ViewModel
                     {
                         try
                         {
+                            Content = _load;
+                            _load.ResettingSubscriptions();
                             _load.ExecuteFunc<HashSet<HexadecimalKeyModel>>(_mainModel.GetDuplicates);
                             _load.CloseHandler += ((sender, args) => DeletingAndRecalculatingData(args));
-                            Content = _load;
                         }
                         catch (Exception e)
                         {
-                            ShowOkMessage(e.Message);
+                            _messager.ShowOkMessage(e.Message);
                         }
                     },
                         (obj) => NotNull()
@@ -140,21 +140,25 @@ namespace Hex_Handler_App.ViewModel
                             HexModels.Clear();
                             try
                             {
+                                Content = _load;
+                                _load.ResettingSubscriptions();
                                 ModelInitialization();
                                 string fileData = _fileWorker.GetFileData(EnteredFilePath);
                                 _load.CloseHandler += ((sender, args) => { Content = null; });
                                 _load.ExecuteAction<string>(_mainModel.ReadAndParsingData, fileData);
-                                Content = _load;
                             }
                             catch (Exception e)
                             {
-                                ShowOkMessage(e.Message);
+                                _messager.ShowOkMessage(e.Message);
                             }
                         }
                     }));
             }
         }
 
+        /// <summary>
+        /// Initializing the current model
+        /// </summary>
         private void ModelInitialization()
         {
             if (ShowMode == Mode.Key)
@@ -167,22 +171,32 @@ namespace Hex_Handler_App.ViewModel
             }
         }
 
-        private async void SaveData(object sender, EventArgs args)
-        {            
+        /// <summary>
+        /// Saving data
+        /// </summary>
+        /// <param name="args">A package containing the data to be saved</param>
+        private async void SaveData(EventArgs args)
+        {
+            Content = null;
             if (args != EventArgs.Empty)
             {
                 string savedData = await (Task<string>)(args as PackageEventArgs).Message;
                 if (_fileWorker.SaveData(savedData))
                 {
-                    ShowOkMessage("The file has been successfully saved.");
+                    _messager.ShowOkMessage("The file has been successfully saved.");
                 }
                 else
                 {
-                    ShowOkMessage("Saving the file was canceled by the user."); 
-                }                
+                    _messager.ShowOkMessage("Saving the file was canceled by the user."); 
+                }
+                _load.CloseHandler -= ((sender, args) => SaveData(args));
             }
         }
 
+        /// <summary>
+        /// Find and delete duplicates
+        /// </summary>
+        /// <param name="args">A package containing a list of data to delete</param>
         private async void DeletingAndRecalculatingData(EventArgs args)
         {
             Content = null;
@@ -191,27 +205,25 @@ namespace Hex_Handler_App.ViewModel
                 var duplicates = await (Task<HashSet<HexadecimalKeyModel>>)(args as PackageEventArgs).Message;
                 if (duplicates != null && duplicates.Count != 0)
                 {
-                    if (ShowYesNoMessage($"{duplicates.Count} duplicates detected. Delete it?"))
+                    if (_messager.ShowYesNoMessage($"{duplicates.Count} duplicates detected. Delete it?"))
                     {
                         _load.ExecuteAction<HashSet<HexadecimalKeyModel>>(_mainModel.DeleteDuplicates, duplicates);
-                        ShowOkMessage("The operation is complete. All duplicates are deleted.");
+                        _messager.ShowOkMessage("The operation is complete. All duplicates are deleted.");
                     }
                 }
                 else
                 {
-                    ShowOkMessage("No duplicates found.");
+                    _messager.ShowOkMessage("No duplicates found.");
                 }
             }
+            _load.CloseHandler -= ((sender, args) => DeletingAndRecalculatingData(args));
         }
 
+        /// <summary>
+        /// Checking for data existence
+        /// </summary>
+        /// <returns>Test result</returns>
         private bool NotNull() =>
-            HexModels != null && HexModels.Count != 0;
-
-        private void ShowOkMessage(string message) => 
-            MessageBox.Show(message, "Message", MessageBoxButton.OK);
-
-
-        private bool ShowYesNoMessage(string message) => 
-            MessageBox.Show(message, "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes;       
+            HexModels != null && HexModels.Count != 0;      
     }
 }

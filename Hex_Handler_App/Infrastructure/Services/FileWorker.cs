@@ -10,9 +10,11 @@ namespace Hex_Handler_App.Infrastructure.Services
 
         public string OpenFileDialog()
         {
-            VistaOpenFileDialog fileDialog = new VistaOpenFileDialog();
-            fileDialog.Filter = FILE_PATTERN;
-            fileDialog.FilterIndex = 2;
+            VistaOpenFileDialog fileDialog = new VistaOpenFileDialog
+            {
+                Filter = FILE_PATTERN,
+                FilterIndex = 2
+            };
             if (fileDialog.ShowDialog() == true)
             {
                 return fileDialog.FileName;
@@ -33,9 +35,11 @@ namespace Hex_Handler_App.Infrastructure.Services
 
         public bool SaveData(string data)
         {
-            VistaSaveFileDialog saveDialog = new VistaSaveFileDialog();
-            saveDialog.Filter = FILE_PATTERN;
-            saveDialog.FilterIndex = 2;
+            VistaSaveFileDialog saveDialog = new VistaSaveFileDialog
+            {
+                Filter = FILE_PATTERN,
+                FilterIndex = 2
+            };
             if (saveDialog.ShowDialog() == true)
             {
                 if(!Path.HasExtension(saveDialog.FileName))

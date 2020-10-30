@@ -78,19 +78,26 @@ namespace Hex_Handler_App.Views.Controls
             }
         }
 
-        private void grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void KeysGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditingElement is TextBox tb)
+            {
+                tb.Text = tb.Text.ToUpper();
+            }
+        }
+
+        private void Grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
             {
-                string qwe = "";
                 if ((string)e.Column.Header == "Key" && e.EditingElement is TextBox tb)
                 {
+                    tb.Text = tb.Text.ToUpper();
                     string amounth = "";
                     for (int i = 0; i < tb.Text.Length; i += 2)
                     {
                         string nextTerm = string.Format("{0}{1}", tb.Text[i], tb.Text[i + 1]);
                         amounth = SummationOfBytes(amounth, nextTerm);
-                        qwe += nextTerm;
                     }
                     string invertValue = IncvertValue(amounth);
                     var row = e.Row.DataContext as HexadecimalKeyModel;

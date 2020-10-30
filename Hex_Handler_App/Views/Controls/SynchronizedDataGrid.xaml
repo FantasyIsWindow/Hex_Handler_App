@@ -9,6 +9,7 @@
         <DataGrid x:Name="keysGrid"
                   Style="{StaticResource dataGridStyle}" 
                   Visibility="{Binding ShowMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource visibilityConverter}, ConverterParameter=Keys}"
+                  CellEditEnding="KeysGrid_CellEditEnding"
                   ItemsSource="{Binding DisplayData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Number}" Header="№" MinWidth="50" Width="auto" IsReadOnly="True"/>
@@ -18,7 +19,7 @@
         <DataGrid x:Name="hashGrid"
                   Style="{StaticResource dataGridStyle}" 
                   Visibility="{Binding ShowMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource visibilityConverter}, ConverterParameter=Hash}"
-                  CellEditEnding="grid_CellEditEnding"
+                  CellEditEnding="Grid_CellEditEnding"
                   ItemsSource="{Binding DisplayData, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Number}" Header="№" MinWidth="50" Width="auto" IsReadOnly="True"/>

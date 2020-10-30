@@ -9,14 +9,12 @@ namespace Hex_Handler_App.ViewModel
     {
         public event EventHandler CloseHandler;
 
-        public void ExecuteAction(Action action)
-        {
-            Task.Factory.StartNew(action).ContinueWith(t =>
-            {
-                CloseHandler?.Invoke(this, EventArgs.Empty);
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-        }
-
+        /// <summary>
+        /// Executing a function with a single parameter
+        /// </summary>
+        /// <typeparam name="T">Type of parameter</typeparam>
+        /// <param name="action">Execution method</param>
+        /// <param name="parameter">Method parameter</param>
         public void ExecuteAction<T>(Action<T> action, T parameter)
         {
             Task.Factory.StartNew(() => action(parameter)).ContinueWith(t =>
@@ -25,6 +23,11 @@ namespace Hex_Handler_App.ViewModel
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
+        /// <summary>
+        /// Executing the method and returning the result
+        /// </summary>
+        /// <typeparam name="T">Type of returned result</typeparam>
+        /// <param name="func">Execution method</param>
         public void ExecuteFunc<T>(Func<T> func)
         {
             Task.Factory.StartNew(func).ContinueWith(t =>
@@ -32,6 +35,17 @@ namespace Hex_Handler_App.ViewModel
                 var args = new PackageEventArgs() { Message = t };
                 CloseHandler?.Invoke(this, args);
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        /// <summary>
+        /// Resetting subscriptions
+        /// </summary>
+        public void ResettingSubscriptions()
+        {
+            if (CloseHandler != null)
+            {
+                CloseHandler = null;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Hex_Handler_App.ViewModel
         private readonly IFileWorker _fileWorker;
 
         private string _enteredFilePath;
-
+        
         private object _content;
 
         private Mode _showMode;
